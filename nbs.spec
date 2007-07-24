@@ -6,14 +6,14 @@
 Summary:	Network Broadcast Sound Daemon
 Name:		nbs
 Version:	1.0
-Release:	%mkrel 0.%{snap}.1
-URL:		http://www.asterisk.org/
+Release:	%mkrel 0.%{snap}.2
 License:	GPL
+Group:		System/Servers
+URL:		http://www.asterisk.org/
 Source0:	%{name}-%{version}-%{snap}.tar.bz2
-Source1:	nbsd.init.bz2
+Source1:	nbsd.init
 Patch0:		nbs-1.0-20040615-mdk.diff
 Patch1:		nbs-1.0-20040615-socket_path.diff
-Group:		System/Servers
 BuildConflicts:	%{name}-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
@@ -43,7 +43,8 @@ files.
 %package	server
 Summary:	Network Broadcast Sound Daemon
 Group:          System/Servers
-PreReq:		rpm-helper
+Requires(post): rpm-helper
+Requires(preun): rpm-helper
 
 %description	server
 Network Broadcast Sound Daemon
@@ -61,7 +62,7 @@ Network Broadcast Sound Daemon (Client Listener)
 %patch0 -p0 -b .mdk
 %patch1 -p0 -b .socket
 
-bzcat %{SOURCE1} > nbsd.init
+cp %{SOURCE1} nbsd.init
 
 %build
 
@@ -118,7 +119,7 @@ bzip2 *.patch
 
 %files server
 %defattr(-,root,root)
-%config(noreplace) %attr(0755,root,root) %{_initrddir}/nbsd
+%attr(0755,root,root) %{_initrddir}/nbsd
 %{_sbindir}/nbsd
 %dir %{_localstatedir}/nbsd
 
@@ -126,5 +127,3 @@ bzip2 *.patch
 %defattr(-,root,root)
 %{_bindir}/nbscat
 %{_bindir}/nbscat8k
-
-
