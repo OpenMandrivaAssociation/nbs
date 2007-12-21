@@ -15,6 +15,7 @@ Source1:	nbsd.init
 Patch0:		nbs-1.0-20040615-mdk.diff
 Patch1:		nbs-1.0-20040615-socket_path.diff
 BuildConflicts:	%{name}-devel
+BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
 %description
 Network Broadcast Sound Daemon
