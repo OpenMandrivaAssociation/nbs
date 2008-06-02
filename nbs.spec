@@ -76,7 +76,7 @@ export DONT_GPRINTIFY=1
 
 install -d %{buildroot}%{_includedir}
 install -d %{buildroot}%{_initrddir}
-install -d %{buildroot}%{_localstatedir}/nbsd
+install -d %{buildroot}%{_localstatedir}/lib/nbsd
 install -d %{buildroot}%{_libdir}
 install -d %{buildroot}%{_bindir}
 install -d %{buildroot}%{_sbindir}
@@ -121,7 +121,7 @@ bzip2 *.patch
 %defattr(-,root,root)
 %attr(0755,root,root) %{_initrddir}/nbsd
 %{_sbindir}/nbsd
-%dir %{_localstatedir}/nbsd
+%dir %{_localstatedir}/lib/nbsd
 
 %files client
 %defattr(-,root,root)
