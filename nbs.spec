@@ -93,9 +93,13 @@ install -m0755 nbsd.init %{buildroot}%{_initrddir}/nbsd
 
 bzip2 *.patch
 
+%if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
+%endif
 
+%if %mdkversion < 200900
 %postun -n %{libname} -p /sbin/ldconfig
+%endif
 
 %post server
 %_post_service nbsd
