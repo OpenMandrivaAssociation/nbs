@@ -1,12 +1,13 @@
-%define	snap	20040615
+%define	snap 20040615
 
 %define	major 1
-%define libname	%mklibname nbs %{major}
+%define libname %mklibname nbs %{major}
+%define develname %mklibname nbs -d
 
 Summary:	Network Broadcast Sound Daemon
 Name:		nbs
 Version:	1.0
-Release:	%mkrel 0.%{snap}.2
+Release:	%mkrel 0.%{snap}.3
 License:	GPL
 Group:		System/Servers
 URL:		http://www.asterisk.org/
@@ -15,7 +16,7 @@ Source1:	nbsd.init
 Patch0:		nbs-1.0-20040615-mdk.diff
 Patch1:		nbs-1.0-20040615-socket_path.diff
 BuildConflicts:	%{name}-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-root
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Network Broadcast Sound Daemon
@@ -27,14 +28,15 @@ Group:          System/Libraries
 %description -n	%{libname}
 Network Broadcast Sound Daemon Library
 
-%package -n	%{libname}-devel
+%package -n	%{develname}
 Summary:	Development files for the Network Broadcast Sound Daemon Library
 Group:		Development/C
-Obsoletes:	%{name}-devel libnbs-devel
-Provides:	%{name}-devel libnbs-devel
 Requires:	%{libname} = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
+Provides:	libnbs-devel = %{version}-%{release}
+Obsoletes:	%{mklibname nbs -d 1}
 
-%description -n	%{libname}-devel
+%description -n	%{develname}
 Development files for the Network Broadcast Sound Daemon Library
 
 This package contains the static nbs library and its header
@@ -69,7 +71,7 @@ cp %{SOURCE1} nbsd.init
 %make
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 # don't fiddle with the initscript!
 export DONT_GPRINTIFY=1
@@ -108,13 +110,13 @@ bzip2 *.patch
 %_preun_service nbsd
 
 %clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files -n %{libname}
 %defattr(-,root,root)
 %{_libdir}/*.so.*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %doc xmms-nbs-1.2.10.patch* xmms-nbs.patch*
 %{_includedir}/*.h
