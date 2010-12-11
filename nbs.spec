@@ -7,7 +7,7 @@
 Summary:	Network Broadcast Sound Daemon
 Name:		nbs
 Version:	1.0
-Release:	%mkrel 0.%{snap}.4
+Release:	%mkrel 0.%{snap}.5
 License:	GPL
 Group:		System/Servers
 URL:		http://www.asterisk.org/
