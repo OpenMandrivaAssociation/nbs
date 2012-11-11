@@ -1,0 +1,33 @@
+--- Makefile	2004-03-20 07:51:51.000000000 +0100
++++ Makefile.oden	2004-11-02 21:03:08.109357285 +0100
+@@ -1,4 +1,5 @@
+-CFLAGS=-g -Wall -O2 -D_NBS_PRIVATE -Wmissing-prototypes -Werror
++CC=gcc
++CFLAGS=$(RPM_OPT_FLAGS) -Wall -fPIC -D_REENTRANT -D_NBS_PRIVATE
+ OBJS=nbsd.o
+ STATIC_OBJS=nbsclient.o
+ DYNAMIC_OBJS=nbsclient.lo
+@@ -28,17 +29,17 @@
+ 	ranlib $(STATIC_LIBRARY)
+ 
+ $(DYNAMIC_LIBRARY): $(DYNAMIC_OBJS)
+-	$(CC) -shared -Wl,-soname,libnbs.so.1 -o $@ $(DYNAMIC_OBJS)
+-	/sbin/ldconfig -n .
+-	ln -sf libnbs.so.1 libnbs.so
++	$(CC) $(CFLAGS) -shared -Wl,-soname,libnbs.so.1 -o $@ $(DYNAMIC_OBJS)
++	ln -snf $(DYNAMIC_LIBRARY) libnbs.so.1
++	ln -snf $(DYNAMIC_LIBRARY) libnbs.so
+ 
+ clean:
+ 	rm -f *.o *.so.* *.so *.lo
+ 	rm -f $(STATIC_LIBRARY) $(DYNAMIC_LIBRARY)
+ 	rm -f nbsd nbscat
+ 
+-nbsd: $(OBJS)
+-	$(CC) -o nbsd $(OBJS)
++nbsd: $(OBJS) $(DYNAMIC_LIBRARY)
++	$(CC) $(CFLAGS) -o nbsd $(OBJS) -L. -lnbs
+ 
+ nbscat: nbscat.o $(DYNAMIC_LIBRARY)
+-	$(CC) -o nbscat nbscat.o -L. -lnbs
++	$(CC) $(CFLAGS) -o nbscat nbscat.o -L. -lnbs
