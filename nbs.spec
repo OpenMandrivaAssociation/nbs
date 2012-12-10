@@ -133,3 +133,46 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %{_bindir}/nbscat
 %{_bindir}/nbscat8k
+
+
+%changelog
+* Sat Dec 11 2010 Oden Eriksson <oeriksson@mandriva.com> 1.0-0.20040615.5mdv2011.0
++ Revision: 620478
+- the mass rebuild of 2010.0 packages
+
+* Fri Sep 04 2009 Thierry Vignaud <tv@mandriva.org> 1.0-0.20040615.4mdv2010.0
++ Revision: 430155
+- rebuild
+
+* Wed Jul 09 2008 Oden Eriksson <oeriksson@mandriva.com> 1.0-0.20040615.3mdv2009.0
++ Revision: 233038
+- rebuild
+
+  + Pixel <pixel@mandriva.com>
+    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+    - adapt to %%_localstatedir now being /var instead of /var/lib (#22312)
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+* Tue Jul 24 2007 Oden Eriksson <oeriksson@mandriva.com> 1.0-0.20040615.2mdv2008.0
++ Revision: 54939
+- bunzip the init script
+- misc spec file fixes
+- don't start the server per default, this conforms to the 2008 specifications
+
+
+* Fri Oct 20 2006 Oden Eriksson <oeriksson@mandriva.com> 1.0-0.20040615.1mdv2007.0
++ Revision: 71220
+- Import nbs
+
+* Sun Dec 25 2005 Oden Eriksson <oeriksson@mandriva.com> 1.0-0.20040616.1mdk
+- rebuild
+
+* Tue Nov 02 2004 Oden Eriksson <oeriksson@mandrakesoft.com> 1.0-0.20040615.1mdk
+- initial mandrake package
+- added P0 and P1
+
