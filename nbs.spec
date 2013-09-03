@@ -16,7 +16,6 @@ Source1:	nbsd.init
 Patch0:		nbs-1.0-20040615-mdk.diff
 Patch1:		nbs-1.0-20040615-socket_path.diff
 BuildConflicts:	%{name}-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Network Broadcast Sound Daemon
@@ -71,8 +70,6 @@ cp %{SOURCE1} nbsd.init
 %make
 
 %install
-rm -rf %{buildroot}
-
 # don't fiddle with the initscript!
 export DONT_GPRINTIFY=1
 
@@ -95,42 +92,27 @@ install -m0755 nbsd.init %{buildroot}%{_initrddir}/nbsd
 
 bzip2 *.patch
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
 %post server
 %_post_service nbsd
 
 %preun server
 %_preun_service nbsd
 
-%clean
-rm -rf %{buildroot}
-
 %files -n %{libname}
-%defattr(-,root,root)
 %{_libdir}/*.so.*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %doc xmms-nbs-1.2.10.patch* xmms-nbs.patch*
 %{_includedir}/*.h
 %{_libdir}/*.so
 %{_libdir}/*.a
 
 %files server
-%defattr(-,root,root)
 %attr(0755,root,root) %{_initrddir}/nbsd
 %{_sbindir}/nbsd
 %dir %{_localstatedir}/lib/nbsd
 
 %files client
-%defattr(-,root,root)
 %{_bindir}/nbscat
 %{_bindir}/nbscat8k
 
