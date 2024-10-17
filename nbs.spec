@@ -10,7 +10,7 @@ Version:	1.0
 Release:	%mkrel 0.%{snap}.5
 License:	GPL
 Group:		System/Servers
-URL:		http://www.asterisk.org/
+URL:		https://www.asterisk.org/
 Source0:	%{name}-%{version}-%{snap}.tar.bz2
 Source1:	nbsd.init
 Patch0:		nbs-1.0-20040615-mdk.diff
